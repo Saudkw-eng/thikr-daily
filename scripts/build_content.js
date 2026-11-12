@@ -39,6 +39,23 @@ const VERSES = [
   { key: '18:46', topic: 'الكهف', friday: true },
   { key: '18:109', topic: 'الكهف', friday: true },
   { key: '33:56', topic: 'الصلاة على النبي', friday: true },
+  // إضافات خطة الشهر
+  { key: '2:45', topic: 'صبر' },
+  { key: '12:87', topic: 'أمل' },
+  { key: '94:7-8', topic: 'عمل' },
+  { key: '3:173', topic: 'توكل' },
+  { key: '7:23', topic: 'دعاء' },
+  { key: '14:40-41', topic: 'دعاء' },
+  { key: '17:24', topic: 'بر الوالدين' },
+  { key: '20:114', topic: 'علم' },
+  { key: '28:24', topic: 'دعاء' },
+  { key: '3:200', topic: 'صبر' },
+  { key: '6:162', topic: 'إخلاص' },
+  { key: '71:10', topic: 'استغفار' },
+  { key: '18:1', topic: 'الكهف', friday: true },
+  { key: '18:23-24', topic: 'الكهف', friday: true },
+  { key: '18:28', topic: 'الكهف', friday: true },
+  { key: '18:107', topic: 'الكهف', friday: true },
 ];
 
 // ---------- الأذكار ----------

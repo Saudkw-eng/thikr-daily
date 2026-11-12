@@ -1,17 +1,20 @@
 {
-  "name": "islamic-instagram",
-  "version": "1.0.0",
-  "scripts": {
-    "content": "node scripts/build_content.js",
-    "render": "node scripts/render.js",
-    "publish": "node scripts/publish.js",
-    "dry-run": "node scripts/publish.js --simulate 14"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "نشر أذكار وآيات تلقائياً على انستقرام",
-  "dependencies": {
-    "playwright": "^1.49.1"
-  }
+    "name":  "islamic-instagram",
+    "version":  "1.0.0",
+    "scripts":  {
+                    "content":  "node scripts/build_content.js",
+                    "render":  "node scripts/render.js",
+                    "publish":  "node scripts/publish.js",
+                    "dry-run":  "node scripts/publish.js --simulate 14",
+                    "plan":  "node scripts/plan.js"
+                },
+    "keywords":  [
+
+                 ],
+    "author":  "",
+    "license":  "ISC",
+    "description":  "نشر أذكار وآيات تلقائياً على انستقرام",
+    "dependencies":  {
+                         "playwright":  "^1.49.1"
+                     }
 }

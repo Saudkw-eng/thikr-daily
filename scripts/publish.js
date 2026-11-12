@@ -15,6 +15,8 @@ const LOG_FILE = path.join(ROOT, 'posted_log.json');
 const content = JSON.parse(fs.readFileSync(path.join(ROOT, 'content.json'), 'utf8'));
 const schedule = JSON.parse(fs.readFileSync(path.join(ROOT, 'schedule.json'), 'utf8'));
 const cfg = JSON.parse(fs.readFileSync(path.join(ROOT, 'config.json'), 'utf8'));
+const PLAN_FILE = path.join(ROOT, 'month_plan.json');
+const plan = fs.existsSync(PLAN_FILE) ? JSON.parse(fs.readFileSync(PLAN_FILE, 'utf8')) : { entries: {} };
 
 const FILES = { post: 'post.jpg', story: 'story.jpg', reel: 'reel.mp4' };
 const KUWAIT_OFFSET_MS = 3 * 60 * 60 * 1000;
@@ -158,9 +160,16 @@ function describe(date, slot, rule, pick, format, url) {
 async function runSlot(slot, date, log, { dryRun, id, quiet }) {
   const rule = slotRule(slot, date);
   const slotKey = `${slot}${isFriday(date) && schedule.friday[slot] ? '-friday' : ''}`;
+  // خطة الشهر (month_plan.json) لها الأولوية، إلا إذا هالفترة انتشرت اليوم من قبل
+  const planned = !id && !quiet && plan.entries?.[date]?.[slot];
+  const alreadyPosted = log.some(e => e.date === date && e.slot === slot && e.media_id);
+  const plannedItem = planned && !alreadyPosted && content.items.find(i => i.id === planned.id);
+  if (plannedItem && planned.formats) rule.formats = planned.formats;
   const pick = id
     ? { item: content.items.find(i => i.id === id), cycle: '-', poolSize: '-' }
-    : pickItem(rule, slotKey, log, date);
+    : plannedItem
+      ? { item: plannedItem, cycle: 'خطة الشهر', poolSize: '-' }
+      : pickItem(rule, slotKey, log, date);
   if (!pick.item) throw new Error(`عنصر غير موجود: ${id}`);
 
   for (const format of rule.formats) {

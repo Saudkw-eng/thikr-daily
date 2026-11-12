@@ -1,14 +1,17 @@
 {
-  "timezone_note": "الأوقات بتوقيت الكويت (UTC+3). أوقات التشغيل الفعلية في .github/workflows/publish.yml بتوقيت UTC.",
+  "rotate_note": "rotate = تناوب يومي بين مجموعات الأنواع (يوم أذكار الصباح/المساء، ويوم أذكار عامة). تستخدمه scripts/plan.js.",
+  "timezone_note":"الأوقات بتوقيت الكويت (UTC+3). أوقات التشغيل الفعلية في .github/workflows/publish.yml بتوقيت UTC.",
   "slots": {
     "morning": {
       "time_kuwait": "06:00",
-      "types": ["صباح", "صباح ومساء"],
+      "types": ["صباح", "صباح ومساء", "عام"],
+      "rotate": [["صباح", "صباح ومساء"], ["عام"]],
       "formats": ["post"]
     },
     "evening": {
       "time_kuwait": "16:30",
-      "types": ["مساء", "صباح ومساء"],
+      "types": ["مساء", "صباح ومساء", "عام"],
+      "rotate": [["مساء", "صباح ومساء"], ["عام"]],
       "formats": ["post"]
     },
     "night": {

@@ -1,0 +1,690 @@
+{
+  "generated_at": "2026-11-12T21:36:19.824Z",
+  "start": "2026-11-13",
+  "days": 30,
+  "entries": {
+    "2026-11-13": {
+      "evening": {
+        "id": "dhikr-jumuah-219",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening-friday"
+      },
+      "night": {
+        "id": "ayah-18-46",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night-friday"
+      }
+    },
+    "2026-11-14": {
+      "morning": {
+        "id": "dhikr-sabah-77",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-masa-77",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-13-28",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-11-15": {
+      "morning": {
+        "id": "dhikr-aam-96",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-aam-120",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-94-5-6",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-11-16": {
+      "morning": {
+        "id": "dhikr-sabah-78",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-masa-78",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-2-152",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-11-17": {
+      "morning": {
+        "id": "dhikr-aam-121",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-aam-122",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-2-186",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-11-18": {
+      "morning": {
+        "id": "dhikr-sabah-masa-79",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-sabah-masa-84",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-39-53",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-11-19": {
+      "morning": {
+        "id": "dhikr-aam-123",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-aam-124",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-40-60",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-11-20": {
+      "morning": {
+        "id": "ayah-18-109",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning-friday"
+      },
+      "evening": {
+        "id": "dhikr-jumuah-220",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening-friday"
+      },
+      "night": {
+        "id": "ayah-33-56",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night-friday"
+      }
+    },
+    "2026-11-21": {
+      "morning": {
+        "id": "dhikr-sabah-masa-85",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-sabah-masa-86",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-14-7",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-11-22": {
+      "morning": {
+        "id": "dhikr-aam-125",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-aam-196",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-2-153",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-11-23": {
+      "morning": {
+        "id": "dhikr-sabah-masa-88",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-masa-90",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-3-139",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-11-24": {
+      "morning": {
+        "id": "dhikr-aam-248",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-aam-250",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-29-69",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-11-25": {
+      "morning": {
+        "id": "dhikr-sabah-90",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-sabah-masa-91",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-93-5",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-11-26": {
+      "morning": {
+        "id": "dhikr-aam-251",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-aam-252",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-20-25-28",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-11-27": {
+      "morning": {
+        "id": "ayah-18-1",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning-friday"
+      },
+      "evening": {
+        "id": "dhikr-jumuah-221",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening-friday"
+      },
+      "night": {
+        "id": "ayah-18-23-24",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night-friday"
+      }
+    },
+    "2026-11-28": {
+      "morning": {
+        "id": "dhikr-sabah-masa-92",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-masa-97",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-21-87",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-11-29": {
+      "morning": {
+        "id": "dhikr-aam-253",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-aam-254",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-50-16",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-11-30": {
+      "morning": {
+        "id": "dhikr-sabah-93",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-masa-77",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-2-255",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-12-01": {
+      "morning": {
+        "id": "dhikr-aam-256",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-aam-257",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-112-1-4",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-12-02": {
+      "morning": {
+        "id": "dhikr-sabah-94",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-masa-78",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-3-8",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-12-03": {
+      "morning": {
+        "id": "dhikr-aam-258",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-aam-259",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-2-201",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-12-04": {
+      "morning": {
+        "id": "ayah-18-28",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning-friday"
+      },
+      "evening": {
+        "id": "dhikr-jumuah-222",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening-friday"
+      },
+      "night": {
+        "id": "ayah-18-107",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night-friday"
+      }
+    },
+    "2026-12-05": {
+      "morning": {
+        "id": "dhikr-sabah-95",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-sabah-masa-79",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-25-74",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-12-06": {
+      "morning": {
+        "id": "dhikr-aam-260",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-aam-261",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-16-128",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-12-07": {
+      "morning": {
+        "id": "dhikr-sabah-1",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-sabah-masa-84",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-65-3",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-12-08": {
+      "morning": {
+        "id": "dhikr-aam-262",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-aam-263",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-55-13",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-12-09": {
+      "morning": {
+        "id": "dhikr-sabah-77",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-sabah-masa-85",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-33-41-42",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-12-10": {
+      "morning": {
+        "id": "dhikr-aam-264",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-aam-96",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-2-45",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    },
+    "2026-12-11": {
+      "morning": {
+        "id": "ayah-18-10",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning-friday"
+      },
+      "evening": {
+        "id": "dhikr-jumuah-223",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening-friday"
+      },
+      "night": {
+        "id": "ayah-18-46",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night-friday"
+      }
+    },
+    "2026-12-12": {
+      "morning": {
+        "id": "dhikr-sabah-78",
+        "formats": [
+          "post"
+        ],
+        "pool": "morning"
+      },
+      "evening": {
+        "id": "dhikr-sabah-masa-86",
+        "formats": [
+          "post"
+        ],
+        "pool": "evening"
+      },
+      "night": {
+        "id": "ayah-12-87",
+        "formats": [
+          "reel"
+        ],
+        "pool": "night"
+      }
+    }
+  }
+}
