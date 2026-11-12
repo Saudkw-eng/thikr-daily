@@ -52,6 +52,7 @@ jobs:
           PUBLIC_BASE_URL: ${{ vars.PUBLIC_BASE_URL }}
           GRAPH_API_VERSION: ${{ vars.GRAPH_API_VERSION }}
           PUBLISHING_ENABLED: ${{ vars.PUBLISHING_ENABLED }}
+          IG_API_HOST: ${{ vars.IG_API_HOST || 'https://graph.instagram.com' }}
           DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
         run: node scripts/publish.js --slot "${{ steps.slot.outputs.slot }}"
 

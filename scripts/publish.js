@@ -78,7 +78,8 @@ function mediaUrl(item, format) {
 }
 
 // ---------- Instagram API ----------
-const API_HOST = process.env.IG_API_HOST || 'https://graph.instagram.com'; // يتغير فقط للاختبار
+// graph.instagram.com لتوكن IGAA (Instagram Login)، و graph.facebook.com لتوكن EAA (Unified login / System user)
+const API_HOST = process.env.IG_API_HOST || 'https://graph.instagram.com';
 const apiVersion = () => process.env.GRAPH_API_VERSION || 'v22.0';
 
 async function api(method, pathPart, params) {

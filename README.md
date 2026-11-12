@@ -95,6 +95,9 @@ https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&acc
 | `PUBLIC_BASE_URL` | `https://USERNAME.github.io/REPO` (بدون / في الآخر) |
 | `PUBLISHING_ENABLED` | `true` |
 | `GRAPH_API_VERSION` | اختياري، الافتراضي `v22.0` |
+| `IG_API_HOST` | `https://graph.facebook.com` إذا التوكن يبدأ بـ `EAA` (Unified login — ما ينتهي). اتركه فاضي إذا يبدأ بـ `IGAA` |
+
+> **تأكد من التوكن:** Actions ← نشر انستقرام ← Run workflow ← اختر الفترة `check`. يطبع اسم الحساب إذا التوكن شغال، بدون ما ينشر شي.
 
 ثم **Settings ← Actions ← General ← Workflow permissions** واختر **Read and write permissions** (عشان يحفظ سجل النشر).
 
