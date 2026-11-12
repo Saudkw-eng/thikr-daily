@@ -122,6 +122,29 @@ async function publishOne(item, format, url) {
   return published.id;
 }
 
+// ---------- إشعار الجوال (ntfy.sh) ----------
+// NTFY_TOPIC من GitHub Secrets — اشترك فيه من تطبيق ntfy. إذا فاضي ما يرسل شي.
+async function notify(title, message, click, tags) {
+  const topic = process.env.NTFY_TOPIC;
+  if (!topic) return;
+  try {
+    const res = await fetch('https://ntfy.sh/', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ topic, title, message, tags, ...(click ? { click } : {}) }),
+    });
+    if (!res.ok) console.log(`⚠️ فشل إرسال الإشعار (HTTP ${res.status})`);
+  } catch (e) {
+    console.log(`⚠️ فشل إرسال الإشعار: ${e.message}`);
+  }
+}
+
+async function permalink(mediaId) {
+  try { return (await api('GET', mediaId, { fields: 'permalink' })).permalink; } catch { return undefined; }
+}
+
+const FORMAT_AR = { post: 'بوست', story: 'ستوري', reel: 'ريل' };
+
 // ---------- التشغيل ----------
 function describe(date, slot, rule, pick, format, url) {
   const { item, cycle, poolSize } = pick;
@@ -154,6 +177,9 @@ async function runSlot(slot, date, log, { dryRun, id, quiet }) {
       if (!exists) throw new Error(`الملف غير موجود: ${localFile}`);
       mediaId = await publishOne(pick.item, format, url);
       console.log(`✅ تم النشر: media_id=${mediaId}`);
+      const link = await permalink(mediaId);
+      const label = pick.item.type === 'آية' ? `${pick.item.surah} ${pick.item.ayah}` : (pick.item.name || pick.item.type);
+      await notify(`✅ تم نشر ${FORMAT_AR[format]}`, `${pick.item.type} — ${label}${link ? `\n${link}` : ''}`, link, ['white_check_mark']);
     }
     log.push({ at: new Date().toISOString(), date, slot, pool: slotKey, id: pick.item.id, format, media_id: mediaId, dry_run: dryRun || undefined });
   }
@@ -210,4 +236,9 @@ async function main() {
   if (!opts.dryRun) fs.writeFileSync(LOG_FILE, JSON.stringify(log, null, 2) + '\n', 'utf8');
 }
 
-main().catch(e => { console.error(`❌ ${e.message}`); process.exit(1); });
+main().catch(async e => {
+  console.error(`❌ ${e.message}`);
+  const { slot, dryRun } = parseArgs();
+  if (!dryRun && slot && slot !== 'check') await notify('❌ فشل النشر', `الفترة: ${slot}\n${e.message}`, undefined, ['warning']);
+  process.exit(1);
+});
