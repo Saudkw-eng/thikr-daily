@@ -1,0 +1,67 @@
+name: نشر انستقرام
+
+on:
+  schedule:
+    # التوقيت هنا UTC — الكويت = UTC+3
+    - cron: '0 3 * * *'    # 06:00 الكويت — أذكار الصباح
+    - cron: '30 13 * * *'  # 16:30 الكويت — أذكار المساء
+    - cron: '0 18 * * *'   # 21:00 الكويت — آية / ريل
+  workflow_dispatch:
+    inputs:
+      slot:
+        description: 'الفترة'
+        type: choice
+        options: [morning, evening, night]
+        default: morning
+      dry_run:
+        description: 'تجربة بدون نشر (dry-run)'
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: تحديد الفترة
+        id: slot
+        run: |
+          case "${{ github.event.schedule }}" in
+            "0 3 * * *")   echo "slot=morning" >> "$GITHUB_OUTPUT" ;;
+            "30 13 * * *") echo "slot=evening" >> "$GITHUB_OUTPUT" ;;
+            "0 18 * * *")  echo "slot=night"   >> "$GITHUB_OUTPUT" ;;
+            *)             echo "slot=${{ inputs.slot }}" >> "$GITHUB_OUTPUT" ;;
+          esac
+
+      - name: النشر
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          PUBLIC_BASE_URL: ${{ vars.PUBLIC_BASE_URL }}
+          GRAPH_API_VERSION: ${{ vars.GRAPH_API_VERSION }}
+          PUBLISHING_ENABLED: ${{ vars.PUBLISHING_ENABLED }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+        run: node scripts/publish.js --slot "${{ steps.slot.outputs.slot }}"
+
+      - name: حفظ سجل النشر
+        if: success()
+        run: |
+          if git diff --quiet -- posted_log.json; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add posted_log.json
+          git commit -m "سجل النشر: ${{ steps.slot.outputs.slot }}"
+          git pull --rebase
+          git push

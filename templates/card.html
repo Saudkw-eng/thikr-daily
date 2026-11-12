@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: var(--w); height: var(--h); overflow: hidden; background: var(--bg-to); }
+  body { font-family: var(--ui-font), serif; color: var(--text); }
+
+  #card { position: relative; width: var(--w); height: var(--h); overflow: hidden;
+    background: radial-gradient(120% 90% at 50% 38%, var(--bg-from) 0%, var(--bg-to) 100%); }
+  #pattern { position: absolute; inset: -160px; opacity: var(--pattern-opacity);
+    background-image: var(--pattern-img); background-size: 120px 120px; will-change: transform; }
+  #glow { position: absolute; left: 50%; top: 42%; width: 140%; height: 70%; transform: translate(-50%, -50%);
+    background: radial-gradient(closest-side, var(--glow), transparent); pointer-events: none; }
+
+  /* إطار رفيع مزدوج */
+  #frame { position: absolute; inset: 44px; border: 1.5px solid var(--accent-a); border-radius: 28px; }
+  #frame::after { content: ""; position: absolute; inset: 10px; border: 1px solid var(--accent-b); border-radius: 20px; }
+
+  #content { position: absolute; inset: 44px; display: flex; flex-direction: column; align-items: center;
+    padding: var(--pad-top) 84px var(--pad-bottom); }
+
+  #label { font-size: 30px; letter-spacing: 0; color: var(--accent); display: flex; align-items: center; gap: 18px; }
+  #label::before, #label::after { content: ""; width: 54px; height: 1.5px; background: var(--accent); opacity: .6; }
+  #star { width: 34px; height: 34px; margin-top: 18px; }
+
+  #main { flex: 1; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 0; }
+  #textbox { width: 100%; text-align: center; overflow: hidden; }
+  #text { display: inline; font-size: var(--fs); line-height: var(--lh); color: var(--text); }
+  #text.quran { font-family: var(--quran-font), serif; }
+  #text.dhikr { font-family: var(--text-font), serif; }
+  .w { display: inline-block; }
+
+  #meta { margin-top: 36px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  #repeat { font-size: 28px; color: var(--accent); border: 1.5px solid var(--accent-a); border-radius: 999px; padding: 4px 26px 8px; }
+  #ref { font-size: 27px; color: var(--muted); text-align: center; line-height: 1.6; }
+  #handle { font-size: 26px; color: var(--muted); direction: ltr; letter-spacing: .5px; opacity: .9; }
+  #footer { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  #brand { font-family: var(--text-font), serif; font-size: 30px; color: var(--accent); }
+</style>
+</head>
+<body>
+<div id="card">
+  <div id="pattern"></div>
+  <div id="glow"></div>
+  <div id="frame"></div>
+  <div id="content">
+    <div id="label"></div>
+    <svg id="star" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="4">
+      <rect x="22" y="22" width="56" height="56"/><rect x="22" y="22" width="56" height="56" transform="rotate(45 50 50)"/>
+      <circle cx="50" cy="50" r="9"/></g></svg>
+    <div id="main">
+      <div id="textbox"><div id="text"></div></div>
+      <div id="meta">
+        <div id="repeat"></div>
+        <div id="ref"></div>
+      </div>
+    </div>
+    <div id="footer">
+      <div id="brand"></div>
+      <div id="handle"></div>
+    </div>
+  </div>
+</div>
+<script>
+const ARABIC_DIGITS = '٠١٢٣٤٥٦٧٨٩';
+const toArabicDigits = n => String(n).replace(/\d/g, d => ARABIC_DIGITS[d]);
+const REPEAT_WORDS = { 3: 'ثلاث مرات', 4: 'أربع مرات', 7: 'سبع مرات', 10: 'عشر مرات', 100: 'مائة مرة' };
+
+function hexA(hex, a) {
+  const n = parseInt(hex.slice(1), 16);
+  return `rgba(${n >> 16}, ${(n >> 8) & 255}, ${n & 255}, ${a})`;
+}
+
+// نقش هندسي: نجمة ثمانية متكررة
+function patternSvg(color) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+    <g fill="none" stroke="${color}" stroke-width="1.6">
+      <rect x="35" y="35" width="50" height="50"/>
+      <rect x="35" y="35" width="50" height="50" transform="rotate(45 60 60)"/>
+      <path d="M0 60 L25 60 M95 60 L120 60 M60 0 L60 25 M60 95 L60 120"/>
+      <circle cx="0" cy="0" r="12"/><circle cx="120" cy="0" r="12"/><circle cx="0" cy="120" r="12"/><circle cx="120" cy="120" r="12"/>
+    </g></svg>`;
+  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+}
+
+async function loadFonts(cfg) {
+  const faces = [
+    new FontFace(cfg.fonts.quran.family, `url(../${cfg.fonts.quran.file})`),
+    new FontFace(cfg.fonts.text.family, `url(../${cfg.fonts.text.file})`),
+    new FontFace(cfg.fonts.text.family, `url(../${cfg.fonts.text.bold_file})`, { weight: '700' }),
+    new FontFace(cfg.fonts.ui.family, `url(../${cfg.fonts.ui.file})`),
+  ];
+  for (const f of faces) document.fonts.add(await f.load());
+  await document.fonts.ready;
+}
+
+// يبني النص: الآيات مع علامة نهاية الآية ورقمها، والأذكار كما هي
+function buildText(item) {
+  if (item.type === 'آية') {
+    const parts = item.verses.map(v => `${v.text} ۝${toArabicDigits(v.n)}`);
+    return { cls: 'quran', html: words(`﴿${parts.join(' ')}﴾`) };
+  }
+  return { cls: 'dhikr', html: words(item.text) };
+}
+// علامات الوقف ورقم الآية والقوس الختامي تلتصق بالكلمة السابقة حتى لا تنفصل في سطر لوحدها
+const STANDALONE = /^[ۖ-۝﴾٠-٩0-9]+$/;
+function words(s) {
+  const tokens = [];
+  for (const tok of s.split(/\s+/).filter(Boolean)) {
+    if (tokens.length && STANDALONE.test(tok)) tokens[tokens.length - 1] += ' ' + tok;
+    else tokens.push(tok);
+  }
+  return tokens.map(w => `<span class="w">${w}</span>`).join(' ');
+}
+
+function refText(item) {
+  if (item.type === 'آية') return item.source.reference;
+  return `${item.source.takhrij} — ${item.source.grade}`;
+}
+
+// يصغّر الخط حتى يدخل النص في المساحة المتاحة
+function fitText(maxFs, minFs) {
+  const box = document.getElementById('textbox');
+  const main = document.getElementById('main');
+  const meta = document.getElementById('meta');
+  let fs = maxFs;
+  const avail = () => main.clientHeight - meta.offsetHeight - 36;
+  document.documentElement.style.setProperty('--fs', fs + 'px');
+  while (fs > minFs && box.scrollHeight > avail()) {
+    fs -= 2;
+    document.documentElement.style.setProperty('--fs', fs + 'px');
+  }
+  return fs;
+}
+
+// يجمع الكلمات في أسطر حسب موقعها بعد التخطيط — يستخدم لظهور الريل سطراً سطراً
+function groupLines() {
+  const lines = [];
+  let lastTop = null;
+  for (const w of document.querySelectorAll('#text .w')) {
+    const top = Math.round(w.getBoundingClientRect().top);
+    if (lastTop === null || Math.abs(top - lastTop) > 8) { lines.push([]); lastTop = top; }
+    lines[lines.length - 1].push(w);
+  }
+  return lines;
+}
+
+window.renderCard = async (item, cfg, format) => {
+  const size = cfg.sizes[format];
+  const theme = cfg.themes[item.type];
+  const root = document.documentElement.style;
+  const tall = size.height > 1500;
+  const vars = {
+    '--w': size.width + 'px', '--h': size.height + 'px',
+    '--bg-from': theme.bg_from, '--bg-to': theme.bg_to,
+    '--pattern-img': patternSvg(theme.pattern), '--pattern-opacity': theme.pattern_opacity,
+    '--glow': hexA(theme.accent, 0.10),
+    '--text': theme.text, '--accent': theme.accent, '--muted': theme.muted,
+    '--accent-a': hexA(theme.accent, 0.55), '--accent-b': hexA(theme.accent, 0.25),
+    '--quran-font': `"${cfg.fonts.quran.family}"`, '--text-font': `"${cfg.fonts.text.family}"`, '--ui-font': `"${cfg.fonts.ui.family}"`,
+    '--pad-top': (tall ? 150 : 70) + 'px', '--pad-bottom': (tall ? 170 : 56) + 'px',
+    '--lh': item.type === 'آية' ? 2.05 : 1.85,
+  };
+  for (const [k, v] of Object.entries(vars)) root.setProperty(k, v);
+  await loadFonts(cfg);
+
+  document.getElementById('label').textContent = theme.label;
+  document.getElementById('star').style.color = theme.accent;
+  const t = buildText(item);
+  const textEl = document.getElementById('text');
+  textEl.className = t.cls;
+  textEl.innerHTML = t.html;
+  const rep = document.getElementById('repeat');
+  rep.textContent = item.repeat > 1 ? (REPEAT_WORDS[item.repeat] || `${toArabicDigits(item.repeat)} مرات`) : '';
+  rep.style.display = item.repeat > 1 ? '' : 'none';
+  document.getElementById('ref').textContent = refText(item);
+  document.getElementById('brand').textContent = cfg.account.name;
+  document.getElementById('handle').textContent = cfg.account.handle;
+
+  // النصوص القصيرة تأخذ خطاً أكبر حتى لا يبدو التصميم فارغاً
+  const len = item.text.length;
+  const boost = len < 90 ? 1.3 : len < 180 ? 1.12 : 1;
+  const maxFs = Math.round((item.type === 'آية' ? (tall ? 78 : 72) : (tall ? 66 : 60)) * boost);
+  const fs = fitText(maxFs, 30);
+  const lines = groupLines();
+  window.__lines = lines;
+  return { fontSize: fs, lines: lines.length };
+};
+
+// حالة الريل عند الزمن t: خلفية تتحرك ببطء، والنص يظهر سطراً سطراً
+const ease = x => 1 - Math.pow(1 - Math.min(Math.max(x, 0), 1), 3);
+window.setTime = (t, duration) => {
+  const lines = window.__lines;
+  document.getElementById('pattern').style.transform = `translate(${(t * 7).toFixed(2)}px, ${(t * 4).toFixed(2)}px)`;
+  document.getElementById('glow').style.opacity = (0.75 + 0.25 * Math.sin(t * 0.9)).toFixed(3);
+  const intro = ease(t / 0.9);
+  for (const id of ['label', 'star', 'footer']) document.getElementById(id).style.opacity = intro;
+  const start = 0.9, fade = 0.9;
+  const step = Math.min(1.3, (duration - start - 3) / Math.max(lines.length, 1));
+  lines.forEach((ws, i) => {
+    const p = ease((t - start - i * step) / fade);
+    for (const w of ws) { w.style.opacity = p; w.style.transform = `translateY(${(1 - p) * 18}px)`; }
+  });
+  const metaP = ease((t - start - lines.length * step) / fade);
+  document.getElementById('meta').style.opacity = metaP;
+};
+</script>
+</body>
+</html>

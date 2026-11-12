@@ -1,0 +1,27 @@
+{
+  "timezone_note": "الأوقات بتوقيت الكويت (UTC+3). أوقات التشغيل الفعلية في .github/workflows/publish.yml بتوقيت UTC.",
+  "slots": {
+    "morning": {
+      "time_kuwait": "06:00",
+      "types": ["صباح", "صباح ومساء"],
+      "formats": ["post"]
+    },
+    "evening": {
+      "time_kuwait": "16:30",
+      "types": ["مساء", "صباح ومساء"],
+      "formats": ["post"]
+    },
+    "night": {
+      "time_kuwait": "21:00",
+      "types": ["آية"],
+      "exclude_friday_items": true,
+      "formats": ["reel"]
+    }
+  },
+  "friday": {
+    "morning": { "types": ["آية"], "friday_only": true, "formats": ["post"] },
+    "evening": { "types": ["جمعة"], "formats": ["post"] },
+    "night": { "types": ["آية"], "friday_only": true, "formats": ["reel"] }
+  },
+  "also_story": false
+}

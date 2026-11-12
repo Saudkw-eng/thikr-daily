@@ -1,0 +1,62 @@
+{
+  "account": {
+    "handle": "@your_account",
+    "name": "ذِكْر"
+  },
+  "fonts": {
+    "quran": { "family": "Amiri Quran", "file": "fonts/AmiriQuran-Regular.ttf" },
+    "text": { "family": "Amiri", "file": "fonts/Amiri-Regular.ttf", "bold_file": "fonts/Amiri-Bold.ttf" },
+    "ui": { "family": "Noto Naskh Arabic", "file": "fonts/NotoNaskhArabic.ttf" }
+  },
+  "sizes": {
+    "post": { "width": 1080, "height": 1350 },
+    "story": { "width": 1080, "height": 1920 },
+    "reel": { "width": 1080, "height": 1920 }
+  },
+  "themes": {
+    "صباح": {
+      "label": "أذكار الصباح",
+      "bg_from": "#f6eedf", "bg_to": "#e9d6b8",
+      "pattern": "#b08a4f", "pattern_opacity": 0.10,
+      "text": "#2f3b33", "accent": "#a8742c", "muted": "#7b6a52"
+    },
+    "مساء": {
+      "label": "أذكار المساء",
+      "bg_from": "#1b2440", "bg_to": "#0e1426",
+      "pattern": "#c9a45c", "pattern_opacity": 0.08,
+      "text": "#f3ead7", "accent": "#d3b06a", "muted": "#a9a28f"
+    },
+    "صباح ومساء": {
+      "label": "أذكار الصباح والمساء",
+      "bg_from": "#eef1ea", "bg_to": "#d7dfd2",
+      "pattern": "#5f7d6a", "pattern_opacity": 0.10,
+      "text": "#26352c", "accent": "#5f7d6a", "muted": "#6c7a70"
+    },
+    "عام": {
+      "label": "ذكر ودعاء",
+      "bg_from": "#f3efe8", "bg_to": "#e3dccf",
+      "pattern": "#8a7a5c", "pattern_opacity": 0.09,
+      "text": "#2e2a24", "accent": "#8a6a3a", "muted": "#7a7060"
+    },
+    "جمعة": {
+      "label": "جمعة مباركة",
+      "bg_from": "#123a33", "bg_to": "#0a221e",
+      "pattern": "#d4b46a", "pattern_opacity": 0.09,
+      "text": "#f4ecd8", "accent": "#d4b46a", "muted": "#a8b5a8"
+    },
+    "آية": {
+      "label": "القرآن الكريم",
+      "bg_from": "#0f3b3a", "bg_to": "#08201f",
+      "pattern": "#d1b06b", "pattern_opacity": 0.08,
+      "text": "#f6efdc", "accent": "#d1b06b", "muted": "#a7b8b2"
+    }
+  },
+  "reel": {
+    "fps": 30,
+    "min_seconds": 10,
+    "max_seconds": 15,
+    "audio_dir": "audio",
+    "audio_note": "ضع ملف تلاوة مرخصة باسم <id>.mp3 أو default.mp3 داخل مجلد audio وسيُدمج تلقائياً، وإلا يكون الصوت صامتاً"
+  },
+  "output_dir": "output"
+}
