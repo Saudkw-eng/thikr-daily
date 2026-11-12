@@ -178,7 +178,16 @@ async function main() {
     return;
   }
 
-  if (!opts.slot) throw new Error('حدد --slot (morning | evening | night) أو --simulate N');
+  if (opts.slot === 'check') {
+    // يتأكد إن التوكن شغال ويطابق IG_USER_ID بدون ما ينشر شي
+    const me = await api('GET', 'me', { fields: 'user_id,username' });
+    console.log(`✅ التوكن شغال — الحساب: @${me.username} (user_id=${me.user_id})`);
+    if (process.env.IG_USER_ID && String(me.user_id) !== String(process.env.IG_USER_ID)) {
+      throw new Error(`IG_USER_ID (${process.env.IG_USER_ID}) لا يطابق user_id للتوكن (${me.user_id})`);
+    }
+    return;
+  }
+  if (!opts.slot) throw new Error('حدد --slot (morning | evening | night | check) أو --simulate N');
   if (process.env.PUBLISHING_ENABLED === 'false' && !opts.dryRun) {
     console.log('⏸️  النشر موقوف (PUBLISHING_ENABLED=false)');
     return;

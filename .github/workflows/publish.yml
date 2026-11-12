@@ -11,7 +11,7 @@ on:
       slot:
         description: 'الفترة'
         type: choice
-        options: [morning, evening, night]
+        options: [morning, evening, night, check]
         default: morning
       dry_run:
         description: 'تجربة بدون نشر (dry-run)'
