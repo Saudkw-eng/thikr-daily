@@ -180,12 +180,17 @@ async function main() {
 
   if (opts.slot === 'check') {
     // يتأكد إن التوكن شغال ويطابق IG_USER_ID بدون ما ينشر شي
-    const me = await api('GET', 'me', { fields: 'user_id,username' });
-    console.log(`✅ التوكن شغال — الحساب: @${me.username} (user_id=${me.user_id})`);
-    if (process.env.IG_USER_ID && String(me.user_id) !== String(process.env.IG_USER_ID)) {
-      throw new Error(`IG_USER_ID (${process.env.IG_USER_ID}) لا يطابق user_id للتوكن (${me.user_id})`);
+    const t = process.env.IG_ACCESS_TOKEN || '';
+    // أول ٤ أحرف وطول التوكن فقط (للتشخيص) — لا يُطبع التوكن نفسه
+    console.log(`🔑 نوع التوكن: ${t.slice(0, 4)}… | الطول: ${t.length} | فيه مسافات: ${/\s/.test(t)}`);
+    const hosts = ['https://graph.instagram.com', 'https://graph.facebook.com'];
+    for (const host of hosts) {
+      const url = `${host}/${apiVersion()}/${process.env.IG_USER_ID}?fields=username&access_token=${encodeURIComponent(t.trim())}`;
+      const data = await fetch(url).then(r => r.json()).catch(e => ({ error: { message: e.message } }));
+      if (data.error) console.log(`❌ ${host}: ${data.error.message}`);
+      else { console.log(`✅ ${host}: التوكن شغال — الحساب @${data.username}`); return; }
     }
-    return;
+    throw new Error('التوكن ما اشتغل على أي من الخادمين');
   }
   if (!opts.slot) throw new Error('حدد --slot (morning | evening | night | check) أو --simulate N');
   if (process.env.PUBLISHING_ENABLED === 'false' && !opts.dryRun) {
