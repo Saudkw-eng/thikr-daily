@@ -163,7 +163,9 @@ async function runSlot(slot, date, log, { dryRun, id, quiet }) {
   // خطة الشهر (month_plan.json) لها الأولوية، إلا إذا هالفترة انتشرت اليوم من قبل
   const planned = !id && !quiet && plan.entries?.[date]?.[slot];
   const alreadyPosted = log.some(e => e.date === date && e.slot === slot && e.media_id);
-  const plannedItem = planned && !alreadyPosted && content.items.find(i => i.id === planned.id);
+  // وما ينشر عنصر الخطة إذا نفس العنصر انتشر اليوم في فترة ثانية
+  const postedToday = log.some(e => e.date === date && e.id === planned?.id && e.media_id);
+  const plannedItem = planned && !alreadyPosted && !postedToday && content.items.find(i => i.id === planned.id);
   if (plannedItem && planned.formats) rule.formats = planned.formats;
   const pick = id
     ? { item: content.items.find(i => i.id === id), cycle: '-', poolSize: '-' }
