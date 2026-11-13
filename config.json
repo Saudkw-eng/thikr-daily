@@ -56,6 +56,9 @@
     "min_seconds": 10,
     "max_seconds": 15,
     "audio_dir": "audio",
+    "reciter_id": 7,
+    "reciter_name": "مشاري راشد العفاسي",
+    "max_seconds_with_audio": 90,
     "audio_note": "ضع ملف تلاوة مرخصة باسم <id>.mp3 أو default.mp3 داخل مجلد audio وسيُدمج تلقائياً، وإلا يكون الصوت صامتاً"
   },
   "output_dir": "output"

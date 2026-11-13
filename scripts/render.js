@@ -6,7 +6,7 @@
 // الناتج: output/<id>/post.jpg | story.jpg | reel.mp4
 const fs = require('fs');
 const path = require('path');
-const { spawn } = require('child_process');
+const { spawn, execFileSync } = require('child_process');
 const { pathToFileURL } = require('url');
 const { chromium } = require('playwright');
 
@@ -58,9 +58,13 @@ function findAudio(id) {
 async function renderReel(browser, item, outFile) {
   const { page, info } = await openCard(browser, item, 'reel');
   const { fps, min_seconds, max_seconds } = cfg.reel;
-  const duration = Math.min(max_seconds, Math.max(min_seconds, 5 + info.lines * 1.3));
-  const frames = Math.round(duration * fps);
   const audio = findAudio(item.id);
+  // مع التلاوة: طول الريل = طول التلاوة + نصف ثانية قبلها وثانية ونص بعدها (حد أقصى ٩٠ ثانية)
+  const audioLen = audio ? Number(execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', audio]).toString()) : 0;
+  const duration = audio
+    ? Math.min(cfg.reel.max_seconds_with_audio || 90, Math.max(min_seconds, audioLen + 2))
+    : Math.min(max_seconds, Math.max(min_seconds, 5 + info.lines * 1.3));
+  const frames = Math.round(duration * fps);
 
   const audioIn = audio
     ? ['-i', audio]
@@ -72,7 +76,7 @@ async function renderReel(browser, item, outFile) {
     '-map', '0:v', '-map', '1:a',
     '-c:v', 'libx264', '-preset', 'medium', '-crf', '23', '-pix_fmt', 'yuv420p', '-r', String(fps),
     '-c:a', 'aac', '-b:a', '128k', '-ar', '48000',
-    '-af', `afade=t=out:st=${(duration - 1).toFixed(2)}:d=1`,
+    '-af', `${audio ? 'adelay=500:all=1,apad,' : ''}afade=t=out:st=${(duration - 1).toFixed(2)}:d=1`,
     '-t', duration.toFixed(2), '-movflags', '+faststart',
     outFile,
   ], { stdio: ['pipe', 'inherit', 'inherit'] });
