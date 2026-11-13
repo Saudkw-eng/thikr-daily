@@ -2,3 +2,4 @@ node_modules/
 render_log.txt
 sample.json
 .env
+audio_log.txt
