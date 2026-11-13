@@ -243,6 +243,10 @@ async function main() {
 
   const log = readLog();
   const date = opts.date || kuwaitToday();
+  if (process.env.SKIP_IF_POSTED === 'true' && log.some(e => e.date === date && e.slot === opts.slot && e.media_id)) {
+    console.log(`⏭️  فترة ${opts.slot} منشورة اليوم (${date}) — ما في شي ينشر`);
+    return;
+  }
   await runSlot(opts.slot, date, log, opts);
   if (!opts.dryRun) fs.writeFileSync(LOG_FILE, JSON.stringify(log, null, 2) + '\n', 'utf8');
 }
